@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<title>{{ .Title }}</title>
+<body>
+  <h2>Remote URL</h2>
+  <ul>
+    <!-- Remote url json -->
+    {{ $urlPre := "https://api.github.com" }}
+    {{ $gistJ := getJSON $urlPre "/users/raffaeldutra/gists" }}
+    {{ range first 5 $gistJ }}
+      {{ if .public }}
+        <li><a href="{{ .html_url }}" target="_blank">{{ .description }}</a></li>
+      {{ end }}
+    {{ end }}
+  </ul>
+
+<h2>Local URL TOML</h2>
+
+{{ range $.Site.Data.disco }}
+<ul>
+{{ range .discography }}
+  <li>{{ . }}</li>
+{{ end }}
+</ul>
+{{ end  }}
+
+<h2>Local URL JSON</h2>
+
+<table style="width:100%">
+ <tr>
+   <th>Nome</th>
+ </tr>
+
+ {{ range $.Site.Data.user }}
+ <tr>
+   {{ range .Name }}
+   <td>{{ . }}</td>
+   {{ end }}
+ </tr>
+
+ <tr>
+   {{ range .Achievements }}
+   <td>{{ . }}</td>
+   {{ end }}
+ </tr>
+
+
+ {{ end }}
+</table>
+
+
+</body>
+</html>
